@@ -6,6 +6,7 @@ import android.util.Log
 import com.example.retrofitminiworkshop.model.Anime
 import com.example.retrofitminiworkshop.model.TopAnime
 import com.example.retrofitminiworkshop.retrofit.ApiMain
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,11 +28,14 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<TopAnime>, response: Response<TopAnime>) {
                 if (response.code() == 200) {
-                    response.body()?.top?.let { result ->
+                    response.body()?.top?.let {
                         // Proses
-//                        for (data in result) {
-//                            Log.d("ResultTopAnime: ", data!!.title + ", \n")
-//                        }
+                        for (data in it) {
+                            Log.d("ResultTopAnime: ", data!!.title + ", \n")
+                            if (title == "Naruto") {
+                                Log.d("ResultTopAnime: ", "Ketemu, $title")
+                            }
+                        }
                     }
                 } else {
                     Log.d("ApiRequestFailure: ", response.code().toString())
@@ -49,9 +53,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<Anime>, response: Response<Anime>) {
                 if (response.code() == 200) {
-                    response.body()?.results?.let { result ->
-                        for (data in result) {
-                            Log.d("ResultSearchAnime: ", data!!.title + ", \n")
+                    response.body()?.results?.let {
+                        for (data in it) {
+                            Log.d("ResultTopAnime: ", data!!.title + ", \n")
+                            if (title == "Naruto") {
+                                Log.d("ResultTopAnime: ", "Ketemu, $title")
+                            }
                         }
                     }
                 } else {
